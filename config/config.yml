@@ -1,7 +1,7 @@
 # Title and subheading for your site. Used on the home page and in page
 # titles.
 #
-title: "My Site"
+title: "The Ruby Standard Librarians Blog"
 subtitle: "(change this text in config/config.yml)"
 
 # You should really specify your content's author when generating an
@@ -34,7 +34,7 @@ subtitle: "(change this text in config/config.yml)"
 #     your actual content and the (optional) menu.txt file that links to your
 #     main category pages.
 #
-content: content
+content: content-demo
 
 # google_analytics_code
 #     Set this if you want Google Analytics to track traffic on your site.

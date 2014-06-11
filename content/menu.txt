@@ -6,3 +6,4 @@ marking-up-pages
   adding-attachments
 menu-editing
 publishing-a-feed
+test-post

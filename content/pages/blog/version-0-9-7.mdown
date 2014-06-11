@@ -1,0 +1,77 @@
+Template: article
+Date: 19 Aug 2011
+Summary: Version 0.9.7 has been released and is available from rubygems.org. There are a handful of bug fixes and support auto detection of stylesheets written in either the Sass or SCSS formats (previously Nesta had only looked for `.sass` files by default).
+Read more: See what's changed
+
+# Nesta 0.9.7 released
+
+Version 0.9.7 has been released and is available from rubygems.org. 
+
+It contains two new features and a handful of bug fixes. The features
+are best described as "small, but useful":
+
+1. There's a new renderer method called `stylesheet` that can convert a
+   Sass or SCSS format stylesheet into a CSS file. Previously you had to
+   choose which format your site or theme would use and stick with it,
+   or override Nesta's behaviour if you didn't like the default format
+   (Sass). The `stylesheet` method was contributed by Isaac Cambron.
+
+2. Menus are rendered as ordered lists. If you wanted to write CSS to
+   highlight the menu item corresponding to the current page, you
+   couldn't do it. In 0.9.7 you can; the current page's list item has
+   the class of “current”.
+
+You may have noticed that we've skipped version 0.9.6. This release
+should have been numbered 0.9.6, but there was a bug in the version of
+Rubygems that I used to build and deploy it and I had to remove the gem
+from rubygems.org. I then had to rebuild the gem using a new version
+number.
+
+## Upgrading
+
+To upgrade an existing site:
+
+1. Update the version of Nesta that is registered in your `Gemfile` and
+   re-run `bundle`.
+2. Replace your `config.ru` file from the template provided in the gem.
+   There's been a bit of shuffling around and a new library (called
+   `nesta/env`) must now be loaded before `nesta/app` can be required,
+   and this all happens inside your `config.ru` file.
+
+In case that's not clear, these commands would have the desired effect:
+
+    $ cd path/to/your/site
+    $ sed -i '' -e '/nesta/ s/0.9.[0-9]/0.9.7/' Gemfile
+    $ bundle
+    $ cp $(bundle show nesta)/templates/config.ru .
+
+## The changes
+
+Here's the relevant section of the [CHANGES][changelog] file:
+
+ * Nesta no longer cares whether you write your Sass stylesheets in the
+   original indented Sass format or the default SCSS syntax (which is a
+   superset of CSS). To use this functionality within your own site or
+   theme change change any calls to the existing `sass` or `scss`
+   helpers to `stylesheet`. (Isaac Cambron, Graham Ashton)
+
+ * Add an HTML class ("current") to the menu items whose path matches
+   the current page.
+
+ * Bug fix: Strip trailing # characters from Markdown headings at the
+   top of a page.
+
+ * Bug fix: Don't render the return value of `local_stylesheet_link_tag`
+   directly into the page (`haml_tag` now writes direct to the output
+   buffer).
+
+ * Bug fix: Removed trailing whitespace inside &lt;a&gt; tags generated
+   by the `display_breadcrumbs()` helper.
+
+ * Bug fix: `Nesta::App.root` couldn't be set until after `nesta/app` was
+   required. Odd that, as the only reason to want to change
+   `Nesta::App.root` would be before requiring `nesta/app`. Fixed by
+   creating `Nesta::Env` and moving root to there instead.
+
+[rubygems]: http://rubygems.org/gems/nesta
+[changelog]: https://github.com/gma/nesta/blob/master/CHANGES

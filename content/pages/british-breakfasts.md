@@ -1,6 +1,6 @@
 # British Breakfasts
 
-This is a page about breakfast.
+This is a page about breakfasts.
 
 Common choices for a tasty breakfast:
 
